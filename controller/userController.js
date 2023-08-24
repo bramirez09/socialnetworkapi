@@ -2,11 +2,11 @@ const { ObjectId } = require('mongoose').Types;
 const { Student } = require('../../../Notes/miniprojects/week18miniproject/Main/models');
 const { User, Thought } = require('../models');
 
-const userCount = async () => {
-    const numberOfUsers = await User.aggregate()
-        .count('friendCount');
-    return numberOfUsers;
-}
+// const userCount = async () => {
+//     const numberOfUsers = await User.aggregate()
+//         .count('friendCount');
+//     return numberOfUsers;
+// }
 
 module.exports = {
     async getUsers(req, res) {
@@ -15,7 +15,7 @@ module.exports = {
 
             const userObj = {
                 users,
-                userCount: await userCount(),
+                // userCount: await userCount(),
             };
             res.json(userObj);
         } catch (err) {
@@ -36,7 +36,7 @@ module.exports = {
             res.json({
                 user,
                 Thought,
-                friendCount: await userCount(),
+                // friendCount: await userCount(),
             });
         } catch (err) {
             console.error(err);

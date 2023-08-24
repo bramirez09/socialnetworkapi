@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const thoughtSchema = require('./thought');
+const thoughtSchema = require('./Thought');
 
 const userSchema = new Schema(
     {
@@ -20,8 +20,14 @@ const userSchema = new Schema(
             },
             required: [true, "Email required"]
         },
-        thoughts: [thoughtSchema],
-        friends: [userSchema.id]
+        thoughts: [{
+            type: Schema.Types.ObjectId,
+             ref:'thought'
+        }],
+        friends: [{
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }]
     },
     {
         toJSON: {
@@ -31,7 +37,7 @@ const userSchema = new Schema(
     }
 );
 
-postSchema.virtual('friendCount').get(function () {
+userSchema.virtual('friendCount').get(function () {
     return this.friends ? this.friends.length : 0;
 });
 
